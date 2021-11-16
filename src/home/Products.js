@@ -1,14 +1,6 @@
-//import { styled } from '@mui/material/styles';
 import Grid from '@mui/material/Grid';
-//import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 
-//const Item = styled(Paper)(({ theme }) => ({
-//...theme.typography.body2,
-//padding: theme.spacing(1),
-//textAlign: 'center',
-//color: theme.palette.text.secondary,
-//}));
 
 
 import React, {Component} from 'react';
@@ -16,10 +8,17 @@ import ProductCard from './ProductCard';
 
 export default class Products extends Component {
   render() {
-
     // filtering happens here
     let filteredProducts = [];
-    filteredProducts = [...this.props.allProducts]
+    if (this.props.textFilter === '' && this.props.categoryFilter === 'all') {
+      filteredProducts = [...this.props.allProducts];
+    } else {
+      if (this.props.categoryFilter === 'all') {
+        filteredProducts = this.props.allProducts.filter(element => element.name.match(new RegExp(this.props.textFilter, 'i')) || element.description.match(new RegExp(this.props.textFilter, 'i')));
+      } else {
+        filteredProducts = this.props.allProducts.filter(element => element.category === this.props.categoryFilter).filter(element => element.name.match(new RegExp(this.props.textFilter, 'i')) || element.description.match(new RegExp(this.props.textFilter, 'i')));
+      }
+    }
 
     return (
       <div>

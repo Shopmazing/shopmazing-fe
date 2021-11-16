@@ -4,8 +4,20 @@ import Icon from '@mui/material/Icon';
 
 export default class Header extends Component {
 
-  //handleCategoryChange = (e) => this.props.updateCategoryFilter(e.target.value);
-  //handleTextChange = (e) => this.props.updateTextFilter(e.target.value); 
+  updateCategoryFilter = (category) => {
+    this.setState({categoryFilter: category});
+  }
+  updateTextFilter = (text) => {
+    this.setState({textFilter: text});
+  }
+
+  handleCategoryChange = (e) => this.props.updateCategoryFilter(e.target.value);
+  handleTextChange = (e) => this.props.updateTextFilter(e.target.value);
+  handleSubmit = (e) => e.preventDefault();
+
+  getCategories = () => {
+    return ['all', ...new Set(this.props.allProducts.map(element => element.category))];
+  }
 
   render() {
     return (
@@ -19,7 +31,24 @@ export default class Header extends Component {
                 <Nav.Link href="#lorem">Home</Nav.Link>
                 <Nav.Link href="#ipsum">About Us</Nav.Link>
               </Nav>
-
+              <Form onSubmit={this.handleSubmit} className="d-flex">
+                <Form.Select onChange={this.handleCategoryChange} aria-label="Floating label select example">
+                  {this.getCategories().map(element => {
+                    return <option value={element}>{element}</option>
+                  })}
+                </Form.Select>
+                <FormControl
+                  type="text"
+                  textFilterValue={this.props.textFilter}
+                  className="me-2"
+                  placeholder="Filter by Text"
+                  aria-label="text"
+                  onChange={this.handleTextChange}
+                />
+              </Form>
+              <Nav>
+                <Nav.Link href="/admin"><Icon>star</Icon></Nav.Link>
+              </Nav>
             </Navbar.Collapse>
           </Container>
         </Navbar>
