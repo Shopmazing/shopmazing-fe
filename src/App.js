@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import './App.css';
-import Products from './Products';
-import Header from './Header';
+import Products from './home/Products';
+import Header from './header/Header';
 
 class App extends Component {
   constructor(props) {
