@@ -12,12 +12,22 @@ class App extends Component {
       cart: [],
       allProducts: [],
       isAdmin: false,
+      textFilter: '',
+      categoryFilter: 'all',
     }
   }
 
   componentDidMount() {
     this.getFakeProducts();
     this.getProducts();
+  }
+
+  updateCategoryFilter = (category) => {
+    this.setState({categoryFilter: category});
+  }
+
+  updateTextFilter = (text) => {
+    this.setState({textFilter: text});
   }
 
   getFakeProducts = async () => {
@@ -57,21 +67,28 @@ class App extends Component {
       console.error(e);
     }
   }
-
   removeFromCart = (id) => {
     let filteredProducts = this.state.cart.filter(product => product._id !== id);
     this.setState({ product: filteredProducts });
-  }
 
-render() {
-  return (
-    <>
-      <Header />
-      <Products allProducts={this.state.allProducts} />
-      <Cart removeFromCart={this.removeFromCart} cart={this.state.cart} />
-    </>
-  );
-}
+  render() {
+    return (
+      <>
+        <Header
+          allProducts={this.state.allProducts}
+          updateTextFilter={this.updateTextFilter}
+          updateCategoryFilter={this.updateCategoryFilter}
+          textFilter={this.state.textFilter}
+          categoryFilter={this.state.categoryFilter}
+        />
+        <Products
+          allProducts={this.state.allProducts}
+          textFilter={this.state.textFilter}
+          categoryFilter={this.state.categoryFilter}
+        />
+        <Cart removeFromCart={this.removeFromCart} cart={this.state.cart} />
+      </>
+    );
 }
 
 export default App;
