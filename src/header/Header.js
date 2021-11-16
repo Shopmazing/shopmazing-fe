@@ -4,12 +4,7 @@ import Icon from '@mui/material/Icon';
 
 export default class Header extends Component {
 
-  updateCategoryFilter = (category) => {
-    this.setState({categoryFilter: category});
-  }
-  updateTextFilter = (text) => {
-    this.setState({textFilter: text});
-  }
+
 
   handleCategoryChange = (e) => this.props.updateCategoryFilter(e.target.value);
   handleTextChange = (e) => this.props.updateTextFilter(e.target.value);
@@ -22,7 +17,7 @@ export default class Header extends Component {
   render() {
     return (
       <>
-        <Navbar collapseOnSelect expand="lg">
+        <Navbar collapseOnSelect expand="lg" variant="primary">
           <Container>
             <Navbar.Brand href="#home">Shopmazing</Navbar.Brand>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
@@ -39,7 +34,7 @@ export default class Header extends Component {
                 </Form.Select>
                 <FormControl
                   type="text"
-                  textFilterValue={this.props.textFilter}
+                  value={this.props.textFilter}
                   className="me-2"
                   placeholder="Filter by Text"
                   aria-label="text"

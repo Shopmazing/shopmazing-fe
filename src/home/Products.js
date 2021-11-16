@@ -12,11 +12,17 @@ export default class Products extends Component {
     let filteredProducts = [];
     if (this.props.textFilter === '' && this.props.categoryFilter === 'all') {
       filteredProducts = [...this.props.allProducts];
+      console.log('no text filter', 'category all');
+      console.log(this.props.categoryFilter, this.props.textFilter)
     } else {
       if (this.props.categoryFilter === 'all') {
         filteredProducts = this.props.allProducts.filter(element => element.name.match(new RegExp(this.props.textFilter, 'i')) || element.description.match(new RegExp(this.props.textFilter, 'i')));
+        console.log('text filter', 'category all');
+        console.log(this.props.categoryFilter, this.props.textFilter)
       } else {
         filteredProducts = this.props.allProducts.filter(element => element.category === this.props.categoryFilter).filter(element => element.name.match(new RegExp(this.props.textFilter, 'i')) || element.description.match(new RegExp(this.props.textFilter, 'i')));
+        console.log('text filter', 'category yes');
+        console.log(this.props.categoryFilter, this.props.textFilter)
       }
     }
 

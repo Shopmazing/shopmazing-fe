@@ -12,12 +12,22 @@ class App extends Component {
       cart: [],
       allProducts: [],
       isAdmin: false,
+      textFilter: '',
+      categoryFilter: 'all',
     }
   }
 
   componentDidMount() {
     this.getFakeProducts();
     this.getProducts();
+  }
+
+  updateCategoryFilter = (category) => {
+    this.setState({categoryFilter: category});
+  }
+
+  updateTextFilter = (text) => {
+    this.setState({textFilter: text});
   }
 
   getFakeProducts = async () => {
@@ -55,8 +65,18 @@ class App extends Component {
   render() {
     return (
       <>
-        <Header />
-        <Products allProducts={this.state.allProducts} />
+        <Header
+          allProducts={this.state.allProducts}
+          updateTextFilter={this.updateTextFilter}
+          updateCategoryFilter={this.updateCategoryFilter}
+          textFilter={this.state.textFilter}
+          categoryFilter={this.state.categoryFilter}
+        />
+        <Products
+          allProducts={this.state.allProducts}
+          textFilter={this.state.textFilter}
+          categoryFilter={this.state.categoryFilter}
+        />
 
       </>
     );
