@@ -1,8 +1,9 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import axios from 'axios';
 import './App.css';
 import Products from './home/Products';
 import Header from './header/Header';
+import Cart from './cart/Cart';
 
 class App extends Component {
   constructor(props) {
@@ -46,7 +47,7 @@ class App extends Component {
         };
       });
       console.log('data', data);
-      this.setState({ allProducts: data });
+      this.setState({allProducts: data});
     } catch {
 
     }
@@ -62,14 +63,15 @@ class App extends Component {
     try {
       let results = await axios.put(url, updateProducts);
       let filteredProducts = this.state.products.filter(product => product._id !== id);
-      this.setState({ products: filteredProducts.data });
+      this.setState({products: filteredProducts.data});
     } catch (e) {
       console.error(e);
     }
   }
   removeFromCart = (id) => {
     let filteredProducts = this.state.cart.filter(product => product._id !== id);
-    this.setState({ product: filteredProducts });
+    this.setState({product: filteredProducts});
+  }
 
   render() {
     return (
@@ -89,6 +91,7 @@ class App extends Component {
         <Cart removeFromCart={this.removeFromCart} cart={this.state.cart} />
       </>
     );
+  }
 }
 
 export default App;
