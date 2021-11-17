@@ -59,14 +59,17 @@ class App extends Component {
   }
 
   getProducts = async () => {
-    const config = {
-      method: 'get',
-      baseUrl: process.env.REACT_APP_SERVER_URL,
-      url: '/',
-    }
+    //const config = {
+      //method: 'get',
+      //baseUrl: process.env.REACT_APP_SERVER_URL,
+      //url: '/',
+    //}
+    const productUrl = `${process.env.REACT_APP_SERVER_URL}/`
     try {
-      const productResponse = await axios(config);
-      this.setState({...this.state.allProducts, ...productResponse})
+      //const productResponse = await axios(config);
+      const productResponse = await axios.get(productUrl);
+      console.log('product response', productResponse.data);
+      //this.setState({...this.state.allProducts, ...productResponse.data})
     } catch (error) {
       console.log(error);
     }
