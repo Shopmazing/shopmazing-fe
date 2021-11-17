@@ -90,14 +90,9 @@ class App extends Component {
 
   addToCart = (id) => {
     const productToAdd = this.state.allProducts.filter(element => element._id === id)[0];
-    if (this.state.cart.filter(element => element._id === productToAdd._id).length > 0) {
-      console.log('already in cart')
-
-    } else {
-      this.setState({cart: [...this.state.cart, productToAdd]})
-      console.log(productToAdd);
-      console.log(this.state.cart);
-    }
+    this.setState({cart: [...this.state.cart, productToAdd]})
+    console.log(productToAdd);
+    console.log(this.state.cart);
   }
 
   render() {
@@ -110,6 +105,7 @@ class App extends Component {
             updateCategoryFilter={this.updateCategoryFilter}
             textFilter={this.state.textFilter}
             categoryFilter={this.state.categoryFilter}
+            cart={this.state.cart}
           />
           <Switch>
             <Route exact path="/">
