@@ -11,3 +11,15 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+.divProducts {
+  margin:5%;
+}
+.gridClass{
+  margin:10%;
+  height:auto;
+ 
+}
+.prodName{
+  height:250px;
+ 
+}

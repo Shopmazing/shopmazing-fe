@@ -3,7 +3,6 @@ import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 
 
-
 export default class Cartitem extends Component {
     render() {
         return (

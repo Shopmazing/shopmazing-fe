@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 
 
 
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import ProductCard from './ProductCard';
 
 export default class Products extends Component {
@@ -27,17 +27,18 @@ export default class Products extends Component {
     }
 
     return (
-      <div>
-        <Box sx={{width: '100%'}}>
-          <Grid container rowSpacing={1} columnSpacing={{xs: 1, sm: 2, md: 3}}>
+      <div className='divProducts'>
+        <Box sx={{ width: '90%' }}>
+          <Grid container rowSpacing={2} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
             {
               filteredProducts.map((element, index) => {
                 return (
-                  <Grid key={index} item xs={6}>
+                  <Grid key={index} item xs={3} >
                     <ProductCard
                       name={element.name}
                       image={element.image}
                       description={element.description}
+                      className='gridClass'
                     />
                   </Grid>
                 );
@@ -45,7 +46,7 @@ export default class Products extends Component {
             }
           </Grid>
         </Box>
-      </div>
+      </div >
     )
   }
 }
