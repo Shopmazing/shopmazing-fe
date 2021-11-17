@@ -4,6 +4,7 @@ import './App.css';
 import Products from './home/Products';
 import Header from './header/Header';
 import Cart from './cart/Cart';
+import AboutUs from './about-us/AboutUs';
 import Admin from './admin/Admin';
 import {
   BrowserRouter as Router,
@@ -156,6 +157,9 @@ class App extends Component {
                 removeFromCart={this.removeFromCart}
                 cart={this.state.cart}
                 allProducts={this.state.allProducts} />
+            </Route>
+            <Route exact path="/about">
+              <AboutUs />
             </Route>
             <Route exact path="/admin">
               <Admin
