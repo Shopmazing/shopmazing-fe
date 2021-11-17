@@ -27,8 +27,8 @@ export default class Header extends Component {
               </Nav>
               <Form onSubmit={this.handleSubmit} className="d-flex">
                 <Form.Select onChange={this.handleCategoryChange} aria-label="Floating label select example">
-                  {this.getCategories().map(element => {
-                    return <option value={element}>{element}</option>
+                  {this.getCategories().map((element, index) => {
+                    return <option key={index} value={element}>{element}</option>
                   })}
                 </Form.Select>
                 <FormControl

@@ -29,9 +29,8 @@ export default class Products extends Component {
                 return (
                   <Grid key={index} item xs={6}>
                     <ProductCard
-                      name={element.name}
-                      image={element.image}
-                      description={element.description}
+                      product={element}
+                      addToCart={this.props.addToCart}
                     />
                   </Grid>
                 );
