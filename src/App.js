@@ -4,7 +4,7 @@ import './App.css';
 import Products from './home/Products';
 import Header from './header/Header';
 import Cart from './cart/Cart';
-import { 
+import {
   BrowserRouter as Router,
   Switch,
   Route,
@@ -56,11 +56,20 @@ class App extends Component {
     } catch {
 
     }
-
   }
 
-  getProducts = () => {
-    //todo
+  getProducts = async () => {
+    const config = {
+      method: 'get',
+      baseUrl: process.env.REACT_APP_SERVER_URL,
+      url: '/',
+    }
+    try {
+      const productResponse = await axios(config);
+      this.setState({...this.state.allProducts, ...productResponse})
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   putProducts = async (id, updateProducts) => {

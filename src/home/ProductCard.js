@@ -26,7 +26,7 @@ export default class ProductCard extends Component {
             </Typography>
           </CardContent>
           <CardActions>
-            <Button size="small">Add to Cart</Button>
+            <Button size="medium" variant="contained">Add to Cart</Button>
           </CardActions>
         </Card>
       </>
