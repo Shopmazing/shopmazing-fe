@@ -39,9 +39,13 @@ export default class Admin extends Component {
           editModalIsVisible={this.state.editModalIsVisible}
           hideModal={this.hideModal}
           editProducts={this.props.editProducts}
+
           productToEdit={this.state.productToEdit}
         />
-        <AdminDataGrid allProducts={this.props.allProducts} showEditModal={this.showEditModal} />
+        <AdminDataGrid
+          allProducts={this.props.allProducts}
+          deleteProducts={this.props.deleteProducts}
+          showEditModal={this.showEditModal} />
         <Button onClick={this.showAddModal} >New Product</Button>
       </>
     )

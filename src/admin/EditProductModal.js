@@ -20,6 +20,7 @@ class EditProductModal extends Component {
           <EditProductForm
             productToEdit={this.props.productToEdit}
             editProducts={this.props.editProducts}
+            hideModal={this.props.hideModal}
           />
         </Modal.Body>
         <Modal.Footer>

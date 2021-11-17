@@ -103,6 +103,21 @@ class App extends Component {
     }
   }
 
+  deleteProducts = async (id) => {
+    const config = {
+      method: 'delete',
+      baseURL: `${process.env.REACT_APP_SERVER_URL}`,
+      url: `/admin/${id}`,
+    }
+    try {
+      await axios(config);
+      let filteredProducts = this.state.allProducts.filter(element => element._id !== id);
+      this.setState({allProducts: filteredProducts});
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   removeFromCart = (id) => {
     let filteredProducts = this.state.cart.filter(product => product._id !== id);
     this.setState({allProducts: filteredProducts});
@@ -146,6 +161,7 @@ class App extends Component {
               <Admin
                 allProducts={this.state.allProducts}
                 editProducts={this.editProducts}
+                deleteProducts={this.deleteProducts}
                 addProducts={this.addProducts}
               />
             </Route>

@@ -30,10 +30,10 @@ export default class AdminDataGrid extends Component {
                     <td>{element.name}</td>
                     <td>{element.description}</td>
                     <td>{element.category}</td>
-                    <td>{element.price}</td>
+                    <td>{`$${element.price}`}</td>
                     <td>{element.stock}</td>
                     <td>{element.quantitySold}</td>
-                    <td><Button>X</Button></td>
+                    <td><Button onClick={() => this.props.deleteProducts(element._id)}>X</Button></td>
                   </tr>
                 )
               })

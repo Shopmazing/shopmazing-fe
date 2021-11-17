@@ -17,6 +17,7 @@ class EditProductForm extends Component {
     const quantitySold = this.props.productToEdit.quantitySold;
     const productObj = {_id, name, stock, price, description, image, category, quantitySold};
     event.target.reset();
+    this.props.hideModal();
     this.props.editProducts(productObj);
   }
 
