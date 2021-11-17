@@ -77,7 +77,7 @@ class App extends Component {
     const config = {
       method: 'post',
       baseURL: `${process.env.REACT_APP_SERVER_URL}`,
-      url: '/admin',
+      url: '/products',
       data: productObj,
     }
     try {
@@ -92,7 +92,7 @@ class App extends Component {
     const config = {
       method: 'put',
       baseURL: `${process.env.REACT_APP_SERVER_URL}`,
-      url: `/admin/${productObj._id}`,
+      url: `/products/${productObj._id}`,
       data: productObj,
     }
     try {
@@ -107,7 +107,7 @@ class App extends Component {
     const config = {
       method: 'delete',
       baseURL: `${process.env.REACT_APP_SERVER_URL}`,
-      url: `/admin/${id}`,
+      url: `/products/${id}`,
     }
     try {
       await axios(config);
@@ -120,7 +120,7 @@ class App extends Component {
 
   removeFromCart = (id) => {
     let filteredProducts = this.state.cart.filter(product => product._id !== id);
-    this.setState({allProducts: filteredProducts});
+    this.setState({cart: filteredProducts});
   }
 
   addToCart = (id) => {

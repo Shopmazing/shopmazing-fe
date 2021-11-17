@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {Navbar, Container, Nav, NavItem, Form, FormControl} from 'react-bootstrap'
 import {Link} from 'react-router-dom';
 import CartBadgedIcon from './CartBadgedIcon';
+import SettingsIcon from '@mui/icons-material/Settings';
 
 export default class Header extends Component {
 
@@ -23,7 +24,6 @@ export default class Header extends Component {
             <Navbar.Collapse id="responsive-navbar-nav">
               <Nav className="me-auto">
                 <NavItem><Link to="/about" className="nav-link">About Us</Link></NavItem>
-                <NavItem><Link to="/cart" className="nav-link">Cart</Link></NavItem>
               </Nav>
               <Form onSubmit={this.handleSubmit} className="d-flex">
                 <Form.Select onChange={this.handleCategoryChange} aria-label="Floating label select example">
@@ -41,7 +41,8 @@ export default class Header extends Component {
                 />
               </Form>
               <Nav>
-                <NavItem> <CartBadgedIcon cart={this.props.cart} /></NavItem>
+                <NavItem><Link to="/admin" className="nav-link"><SettingsIcon /></Link></NavItem>
+                <NavItem><Link to="/cart" className="nav-link"><CartBadgedIcon cart={this.props.cart} /></Link></NavItem>
               </Nav>
             </Navbar.Collapse>
           </Container>

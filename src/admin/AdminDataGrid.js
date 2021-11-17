@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 import Table from 'react-bootstrap/Table';
-import AddButton from './AddButton';
 import Button from 'react-bootstrap/Button';
 
 
@@ -40,7 +39,6 @@ export default class AdminDataGrid extends Component {
             }
           </tbody>
         </Table>
-        <AddButton />
       </>
 
     );
