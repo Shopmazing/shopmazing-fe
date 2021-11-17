@@ -10,7 +10,7 @@ export default class AboutUs extends Component {
     render() {
         return (
             <div className="mainDiv">
-                <h1> Team Members </h1>
+                <h1> Shopmazing team members </h1>
                 <div id="benDiv">
                     <h2>Ben Mills</h2>
                     <img src={ben} alt="Ben" />
