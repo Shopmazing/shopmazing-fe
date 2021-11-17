@@ -1,0 +1,68 @@
+.mainDiv {
+    margin-left: 100px;
+    background-color: azure;
+    /* display: inline; */
+    max-width: 80vw;
+    height: 1600px;
+    /* position: relative; */
+}
+h1 {
+    text-align: center;
+    margin-bottom: 200px;
+}
+
+h2 {
+    position: relative;
+    left: 100px;
+}
+
+img {
+    display: block;
+    /* margin-bottom: 150px; */
+    height: 300px;
+    width: 300px;
+    margin-left: 20px;
+}
+
+p {
+    margin: 200px;
+    margin-top: 20px;
+    margin-left: 20px;
+    width: 400px;
+    height: auto;
+}
+
+/* #benDiv {
+    display: block;
+}
+
+#benDiv img {
+    float: left;
+}
+
+#kirkDiv img {
+    float: right;
+} */
+#kirkDiv {
+    position: relative;
+    left: 30%;
+    bottom: 510px;
+}
+
+#edDiv {
+    position: relative;
+    bottom: 1020px;
+    left: 60%;
+}
+
+/* #edDiv img {
+    float: left;
+}
+
+#jordanDiv img {
+    float: right;
+}
+
+#soniDiv img {
+    float: left;
+} */
