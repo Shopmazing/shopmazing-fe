@@ -2,39 +2,46 @@ import React, {Component} from 'react'
 import AdminDataGrid from './AdminDataGrid';
 import Button from 'react-bootstrap/Button';
 import AddProductModal from './AddProductModal';
+import EditProductModal from './EditProductModal';
 
 export default class Admin extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      showAddProductModal: false,
-      showEditProductModal: false,
+      addModalIsVisible: false,
+      editModalIsVisible: false,
       productToEdit: {},
     }
   }
 
   hideModal = () => {
-    this.setState({showAddProductModal: false, showEditProductModal: false})
+    this.setState({addModalIsVisible: false, editModalIsVisible: false})
   }
 
   showAddModal = () => {
-    this.setState({showAddProductModal: true})
+    this.setState({addModalIsVisible: true})
   }
 
   showEditModal = (productObj) => {
-    this.setState({showEditProductModal: true, productToEdit: productObj})
+    this.setState({editModalIsVisible: true, productToEdit: productObj})
   }
 
   render() {
     return (
       <>
         <AddProductModal
-          showAddProductModal={this.state.showAddProductModal}
+          addModalIsVisible={this.state.addModalIsVisible}
           hideModal={this.hideModal}
           addProducts={this.props.addProducts}
         />
-        <AdminDataGrid allProducts={this.props.allProducts} />
+        <EditProductModal
+          editModalIsVisible={this.state.editModalIsVisible}
+          hideModal={this.hideModal}
+          editProducts={this.props.editProducts}
+          productToEdit={this.state.productToEdit}
+        />
+        <AdminDataGrid allProducts={this.props.allProducts} showEditModal={this.showEditModal} />
         <Button onClick={this.showAddModal} >New Product</Button>
       </>
     )

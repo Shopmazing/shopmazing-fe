@@ -88,14 +88,18 @@ class App extends Component {
     }
   }
 
-  putProducts = async (id, updateProducts) => {
-    const url = `${process.env.REACT_APP_SERVER_URL}/cart/${id}`;
+  editProducts = async (productObj) => {
+    const config = {
+      method: 'put',
+      baseURL: `${process.env.REACT_APP_SERVER_URL}`,
+      url: `/admin/${productObj._id}`,
+      data: productObj,
+    }
     try {
-      let results = await axios.put(url, updateProducts);
-      let filteredProducts = this.state.products.filter(product => product._id !== id);
-      this.setState({products: filteredProducts.data});
-    } catch (e) {
-      console.error(e);
+      await axios(config);
+      this.getProducts();
+    } catch (error) {
+      console.error(error);
     }
   }
 
@@ -133,10 +137,17 @@ class App extends Component {
               />
             </Route>
             <Route exact path="/cart">
-              <Cart removeFromCart={this.removeFromCart} cart={this.state.cart} allProducts={this.state.allProducts} />
+              <Cart
+                removeFromCart={this.removeFromCart}
+                cart={this.state.cart}
+                allProducts={this.state.allProducts} />
             </Route>
             <Route exact path="/admin">
-              <Admin allProducts={this.state.allProducts} addProducts={this.addProducts} />
+              <Admin
+                allProducts={this.state.allProducts}
+                editProducts={this.editProducts}
+                addProducts={this.addProducts}
+              />
             </Route>
           </Switch>
         </Router>

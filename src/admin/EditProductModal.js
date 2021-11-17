@@ -1,25 +1,25 @@
 import {Component} from "react";
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
-import AddProductForm from "./AddProductForm";
+import EditProductForm from "./EditProductForm";
 
-class AddProductModal extends Component {
+class EditProductModal extends Component {
 
   render() {
     return (
       <Modal
-        show={this.props.addModalIsVisible}
+        show={this.props.editModalIsVisible}
         onHide={this.props.hideModal}
         size="lg"
         aria-labelledby="contained-modal-title-vcenter"
         centered>
         <Modal.Header closeButton>
-          <Modal.Title id="contained-modal-title-vcenter">Add New Product</Modal.Title>
+          <Modal.Title id="contained-modal-title-vcenter">Edit {this.props.productToEdit.name}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <AddProductForm
-            product={this.props.product}
-            addProducts={this.props.addProducts}
+          <EditProductForm
+            productToEdit={this.props.productToEdit}
+            editProducts={this.props.editProducts}
           />
         </Modal.Body>
         <Modal.Footer>
@@ -30,4 +30,4 @@ class AddProductModal extends Component {
   };
 }
 
-export default AddProductModal;
+export default EditProductModal;

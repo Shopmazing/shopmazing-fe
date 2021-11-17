@@ -1,8 +1,7 @@
 import React, {Component} from 'react'
 import Table from 'react-bootstrap/Table';
 import AddButton from './AddButton';
-import DeleteButton from './DeleteButton';
-import EditButton from './EditButton';
+import Button from 'react-bootstrap/Button';
 
 
 export default class AdminDataGrid extends Component {
@@ -13,9 +12,12 @@ export default class AdminDataGrid extends Component {
         <Table striped bordered hover>
           <thead>
             <tr>
+              <th></th>
               <th>Product</th>
+              <th>Description</th>
               <th>Category</th>
               <th>Price</th>
+              <th>In Stock</th>
               <th>Quantity Sold</th>
             </tr>
           </thead>
@@ -24,10 +26,14 @@ export default class AdminDataGrid extends Component {
               this.props.allProducts.map(element => {
                 return (
                   <tr key={element._id}>
+                    <td><Button onClick={() => this.props.showEditModal(element)}>Edit</Button></td>
                     <td>{element.name}</td>
-                    <td>{element.name}</td>
-                    <td>{element.name}</td>
-                    <td>{element.name}</td>
+                    <td>{element.description}</td>
+                    <td>{element.category}</td>
+                    <td>{element.price}</td>
+                    <td>{element.stock}</td>
+                    <td>{element.quantitySold}</td>
+                    <td><Button>X</Button></td>
                   </tr>
                 )
               })
