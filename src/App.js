@@ -4,6 +4,7 @@ import './App.css';
 import Products from './home/Products';
 import Header from './header/Header';
 import Cart from './cart/Cart';
+import Admin from './admin/Admin';
 import {
   BrowserRouter as Router,
   Switch,
@@ -72,14 +73,48 @@ class App extends Component {
     }
   }
 
-  putProducts = async (id, updateProducts) => {
-    const url = `${process.env.REACT_APP_SERVER_URL}/cart/${id}`;
+  addProducts = async (productObj) => {
+    const config = {
+      method: 'post',
+      baseURL: `${process.env.REACT_APP_SERVER_URL}`,
+      url: '/admin',
+      data: productObj,
+    }
     try {
-      let results = await axios.put(url, updateProducts);
-      let filteredProducts = this.state.products.filter(product => product._id !== id);
-      this.setState({products: filteredProducts.data});
-    } catch (e) {
-      console.error(e);
+      let response = await axios(config);
+      this.setState({allProducts: [...this.state.allProducts, response.data]});
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  editProducts = async (productObj) => {
+    const config = {
+      method: 'put',
+      baseURL: `${process.env.REACT_APP_SERVER_URL}`,
+      url: `/admin/${productObj._id}`,
+      data: productObj,
+    }
+    try {
+      await axios(config);
+      this.getProducts();
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  deleteProducts = async (id) => {
+    const config = {
+      method: 'delete',
+      baseURL: `${process.env.REACT_APP_SERVER_URL}`,
+      url: `/admin/${id}`,
+    }
+    try {
+      await axios(config);
+      let filteredProducts = this.state.allProducts.filter(element => element._id !== id);
+      this.setState({allProducts: filteredProducts});
+    } catch (error) {
+      console.error(error);
     }
   }
 
@@ -117,7 +152,18 @@ class App extends Component {
               />
             </Route>
             <Route exact path="/cart">
-              <Cart removeFromCart={this.removeFromCart} cart={this.state.cart} allProducts={this.state.allProducts} />
+              <Cart
+                removeFromCart={this.removeFromCart}
+                cart={this.state.cart}
+                allProducts={this.state.allProducts} />
+            </Route>
+            <Route exact path="/admin">
+              <Admin
+                allProducts={this.state.allProducts}
+                editProducts={this.editProducts}
+                deleteProducts={this.deleteProducts}
+                addProducts={this.addProducts}
+              />
             </Route>
           </Switch>
         </Router>
