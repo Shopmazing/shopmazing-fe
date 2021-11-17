@@ -3,14 +3,14 @@ import Button from 'react-bootstrap/Button';
 
 export default class PlaceOrder extends Component {
 
-    handleSubmit = (e) => {
+    handleClick = (e) => {
         e.preventDefault();
-        this.setState({cart: [] })
+        this.props.placeOrder(this.props.cart);
     }
 
     render() {
         return (
-            <Button variant="secondary" onSubmit={() => this.handleSubmit()}>Place Order</Button>
+            <Button variant="secondary" onClick={this.handleClick}>Place Order</Button>
             )
         }
     }

@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
 import Cartitem from './Cartitem'
 import PlaceOrder from './PlaceOrder';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row'
 import Table from 'react-bootstrap/Table';
-import { ConstructionOutlined } from '@mui/icons-material';
+import Button from 'react-bootstrap/Button';
+
 
 export default class Cart extends Component {
 
@@ -13,7 +12,11 @@ export default class Cart extends Component {
     }
 
     render() {
-        let total = this.props.cart.map(element => element.price).reduce((a, b) => Number(a) + Number(b), 0);
+        let total = this.props.cart.map(element => element.total).reduce((a, b) => Number(a) + Number(b), 0);
+        // const checkoutCart = this.props.cart
+        // for (let i = 0; i > checkoutCart.length; i++) {
+        //     if (checkoutCart[i]._id) 
+        // }
         console.log(total);
         return (
             <>
@@ -33,7 +36,7 @@ export default class Cart extends Component {
             {
               this.props.cart.map(element => {
                 return (
-                  <Cartitem product={element} removeFromCart={this.props.removeFromCart} />
+                  <Cartitem key={element._id} product={element} removeFromCart={this.props.removeFromCart} />
                 )
               })
             }
@@ -43,7 +46,7 @@ export default class Cart extends Component {
             </tr>
             </tbody>
             </Table>
-            <PlaceOrder cart={this.props.cart}/>
+            {this.props.cart.length > 0 ? <PlaceOrder placeOrder={this.props.placeOrder} cart={this.props.cart}/> : <Button disabled>Place Order</Button>}
             </>
         )
     }

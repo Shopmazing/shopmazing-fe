@@ -52,7 +52,6 @@ class App extends Component {
           stock: 1,
         };
       });
-      console.log('data', data);
       this.setState({allProducts: data});
     } catch (error) {
       console.error(error);
@@ -119,25 +118,49 @@ class App extends Component {
   }
 
   removeFromCart = (id) => {
+    const productToRemove = this.state.allProducts.filter(element => element._id === id)[0];
+    productToRemove.quantity = 0;
     let filteredProducts = this.state.cart.filter(product => product._id !== id);
     this.setState({cart: filteredProducts});
   }
 
   addToCart = (id) => {
+    const containsProduct = (arr, productObj) => {
+      for (let i = 0; i < arr.length; i++) {
+        if (arr[i]._id === productObj._id) {
+          return true;
+        }
+      }
+      return false;
+    }
+
     const productToAdd = this.state.allProducts.filter(element => element._id === id)[0];
-    if (this.state.cart.length === 0) {
+    if (productToAdd.quantity >= productToAdd.stock) {
+      alert('Item out of stock.')
+    } else if(this.state.cart.length > 0 && containsProduct(this.state.cart, productToAdd)) {
+      console.log('already in cart');
+      productToAdd.quantity = Number(productToAdd.quantity) + 1;
+      productToAdd.total = Math.round(productToAdd.quantity * Number(productToAdd.price));
+      const filterCart = this.state.cart.filter(element => element._id !== id);
+      this.setState({cart: [...filterCart , productToAdd]});
+    } else {
       productToAdd.quantity = 1;
       productToAdd.total = Math.round(productToAdd.quantity * Number(productToAdd.price));
+      this.setState({cart: [...this.state.cart, productToAdd]})
+      console.log(productToAdd);
     }
-    for (let i = 0; i > this.state.cart.length; i++) {
-      if (this.state.cart[i]._id === id) {
-        productToAdd.quantity++;
-        console.log('anything');
-      }
+  }
+
+  placeOrder = (orderArray) => {
+    console.log('Placing Order')
+    for (let i = 0; i < orderArray.length; i++) {
+      const productToEdit = this.state.allProducts.filter(element => element._id === orderArray[i]._id)[0];
+      const prodQuantity = orderArray[i].quantity;
+      productToEdit.stock = Number(productToEdit.stock) - Number(prodQuantity);
+      console.log(orderArray[i]);
+      this.editProducts(productToEdit);
+      this.removeFromCart(orderArray[i]._id);
     }
-    this.setState({cart: [...this.state.cart, productToAdd]})
-    console.log(productToAdd);
-    console.log(this.state.cart);
   }
 
   render() {
@@ -163,6 +186,7 @@ class App extends Component {
             </Route>
             <Route exact path="/cart">
               <Cart
+                placeOrder={this.placeOrder}
                 removeFromCart={this.removeFromCart}
                 cart={this.state.cart}
                 allProducts={this.state.allProducts} />
