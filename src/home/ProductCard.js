@@ -5,8 +5,25 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import ProductModal from './ProductModal'
 
 export default class ProductCard extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      modal: false,
+     
+    }
+  }
+ 
+  openModal =() => {
+    this.setState({modal: true})
+    console.log(this.state.modal)
+  }
+
+  closeModal =() => {
+    this.setState({modal: false})
+  }
 
   handleClick = () => {
     this.props.addToCart(this.props.product._id);
@@ -20,6 +37,7 @@ export default class ProductCard extends Component {
             component="img"
             height="140"
             image={this.props.product.image}
+            onClick={this.openModal}
             alt={this.props.product.name}
           />
           <CardContent>
@@ -38,6 +56,7 @@ export default class ProductCard extends Component {
             >Add to Cart</Button>
           </CardActions>
         </Card>
+        <ProductModal modal={this.state.modal} closeModal={this.closeModal} products={this.props.product}/>
       </>
     )
   }

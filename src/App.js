@@ -148,8 +148,7 @@ class App extends Component {
                 allProducts={this.state.allProducts}
                 textFilter={this.state.textFilter}
                 categoryFilter={this.state.categoryFilter}
-                addToCart={this.addToCart}
-              />
+             />
             </Route>
             <Route exact path="/cart">
               <Cart
