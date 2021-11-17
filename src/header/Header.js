@@ -1,10 +1,9 @@
 import React, {Component} from 'react'
-import {Navbar, Container, Nav, NavDropdown, Form, FormControl} from 'react-bootstrap'
+import {Navbar, Container, Nav, NavItem, Form, FormControl} from 'react-bootstrap'
+import {Link} from 'react-router-dom';
 import Icon from '@mui/material/Icon';
 
 export default class Header extends Component {
-
-
 
   handleCategoryChange = (e) => this.props.updateCategoryFilter(e.target.value);
   handleTextChange = (e) => this.props.updateTextFilter(e.target.value);
@@ -19,12 +18,12 @@ export default class Header extends Component {
       <>
         <Navbar collapseOnSelect expand="lg" variant="primary">
           <Container>
-            <Navbar.Brand href="#home">Shopmazing</Navbar.Brand>
+            <Navbar.Brand><Link to="/" className="nav-link">Shopmazing</Link></Navbar.Brand>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
               <Nav className="me-auto">
-                <Nav.Link href="#lorem">Home</Nav.Link>
-                <Nav.Link href="#ipsum">About Us</Nav.Link>
+                <NavItem><Link to="/about" className="nav-link">About Us</Link></NavItem>
+                <NavItem><Link to="/cart" className="nav-link">Cart</Link></NavItem>
               </Nav>
               <Form onSubmit={this.handleSubmit} className="d-flex">
                 <Form.Select onChange={this.handleCategoryChange} aria-label="Floating label select example">

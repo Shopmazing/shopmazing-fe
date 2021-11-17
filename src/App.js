@@ -4,6 +4,11 @@ import './App.css';
 import Products from './home/Products';
 import Header from './header/Header';
 import Cart from './cart/Cart';
+import { 
+  BrowserRouter as Router,
+  Switch,
+  Route,
+} from 'react-router-dom';
 
 class App extends Component {
   constructor(props) {
@@ -76,19 +81,27 @@ class App extends Component {
   render() {
     return (
       <>
-        <Header
-          allProducts={this.state.allProducts}
-          updateTextFilter={this.updateTextFilter}
-          updateCategoryFilter={this.updateCategoryFilter}
-          textFilter={this.state.textFilter}
-          categoryFilter={this.state.categoryFilter}
-        />
-        <Products
-          allProducts={this.state.allProducts}
-          textFilter={this.state.textFilter}
-          categoryFilter={this.state.categoryFilter}
-        />
-        <Cart removeFromCart={this.removeFromCart} cart={this.state.cart} />
+        <Router>
+          <Header
+            allProducts={this.state.allProducts}
+            updateTextFilter={this.updateTextFilter}
+            updateCategoryFilter={this.updateCategoryFilter}
+            textFilter={this.state.textFilter}
+            categoryFilter={this.state.categoryFilter}
+          />
+          <Switch>
+            <Route exact path="/">
+              <Products
+                allProducts={this.state.allProducts}
+                textFilter={this.state.textFilter}
+                categoryFilter={this.state.categoryFilter}
+              />
+            </Route>
+            <Route exact path="/cart">
+              <Cart removeFromCart={this.removeFromCart} cart={this.state.cart} allProducts={this.state.allProducts} />
+            </Route>
+          </Switch>
+        </Router>
       </>
     );
   }
