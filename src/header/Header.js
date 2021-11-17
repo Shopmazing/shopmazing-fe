@@ -1,10 +1,13 @@
 import React, {Component} from 'react'
 import {Navbar, Container, Nav, NavItem, Form, FormControl} from 'react-bootstrap'
+import {withAuth0} from "@auth0/auth0-react";
 import {Link} from 'react-router-dom';
+import LoginButton from './LoginButton';
+import LogoutButton from './LogoutButton';
 import CartBadgedIcon from './CartBadgedIcon';
 import SettingsIcon from '@mui/icons-material/Settings';
 
-export default class Header extends Component {
+class Header extends Component {
 
   handleCategoryChange = (e) => this.props.updateCategoryFilter(e.target.value);
   handleTextChange = (e) => this.props.updateTextFilter(e.target.value);
@@ -43,6 +46,7 @@ export default class Header extends Component {
               <Nav>
                 <NavItem><Link to="/admin" className="nav-link"><SettingsIcon /></Link></NavItem>
                 <NavItem><Link to="/cart" className="nav-link"><CartBadgedIcon cart={this.props.cart} /></Link></NavItem>
+                <NavItem>{this.props.auth0.isAuthenticated ? <LogoutButton /> : <LoginButton />}</NavItem>
               </Nav>
             </Navbar.Collapse>
           </Container>
@@ -52,3 +56,5 @@ export default class Header extends Component {
     )
   }
 }
+
+export default withAuth0(Header);

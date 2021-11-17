@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {withAuth0} from '@auth0/auth0-react';
 import axios from 'axios';
 import './App.css';
 import Products from './home/Products';
@@ -138,12 +139,12 @@ class App extends Component {
     const productToAdd = this.state.allProducts.filter(element => element._id === id)[0];
     if (productToAdd.quantity >= productToAdd.stock) {
       alert('Item out of stock.')
-    } else if(this.state.cart.length > 0 && containsProduct(this.state.cart, productToAdd)) {
+    } else if (this.state.cart.length > 0 && containsProduct(this.state.cart, productToAdd)) {
       console.log('already in cart');
       productToAdd.quantity = Number(productToAdd.quantity) + 1;
       productToAdd.total = Math.round(productToAdd.quantity * Number(productToAdd.price));
       const filterCart = this.state.cart.filter(element => element._id !== id);
-      this.setState({cart: [...filterCart , productToAdd]});
+      this.setState({cart: [...filterCart, productToAdd]});
     } else {
       productToAdd.quantity = 1;
       productToAdd.total = Math.round(productToAdd.quantity * Number(productToAdd.price));
@@ -182,7 +183,8 @@ class App extends Component {
                 allProducts={this.state.allProducts}
                 textFilter={this.state.textFilter}
                 categoryFilter={this.state.categoryFilter}
-             />
+                addToCart={this.addToCart}
+              />
             </Route>
             <Route exact path="/cart">
               <Cart
@@ -209,4 +211,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withAuth0(App);
