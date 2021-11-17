@@ -125,6 +125,16 @@ class App extends Component {
 
   addToCart = (id) => {
     const productToAdd = this.state.allProducts.filter(element => element._id === id)[0];
+    if (this.state.cart.length === 0) {
+      productToAdd.quantity = 1;
+      productToAdd.total = Math.round(productToAdd.quantity * Number(productToAdd.price));
+    }
+    for (let i = 0; i > this.state.cart.length; i++) {
+      if (this.state.cart[i]._id === id) {
+        productToAdd.quantity++;
+        console.log('anything');
+      }
+    }
     this.setState({cart: [...this.state.cart, productToAdd]})
     console.log(productToAdd);
     console.log(this.state.cart);
