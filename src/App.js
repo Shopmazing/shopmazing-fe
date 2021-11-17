@@ -1,8 +1,14 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import axios from 'axios';
 import './App.css';
 import Products from './home/Products';
 import Header from './header/Header';
+import Cart from './cart/Cart';
+import { 
+  BrowserRouter as Router,
+  Switch,
+  Route,
+} from 'react-router-dom';
 
 class App extends Component {
   constructor(props) {
@@ -46,7 +52,7 @@ class App extends Component {
         };
       });
       console.log('data', data);
-      this.setState({ allProducts: data });
+      this.setState({allProducts: data});
     } catch {
 
     }
@@ -62,33 +68,43 @@ class App extends Component {
     try {
       let results = await axios.put(url, updateProducts);
       let filteredProducts = this.state.products.filter(product => product._id !== id);
-      this.setState({ products: filteredProducts.data });
+      this.setState({products: filteredProducts.data});
     } catch (e) {
       console.error(e);
     }
   }
   removeFromCart = (id) => {
     let filteredProducts = this.state.cart.filter(product => product._id !== id);
-    this.setState({ product: filteredProducts });
+    this.setState({product: filteredProducts});
+  }
 
   render() {
     return (
       <>
-        <Header
-          allProducts={this.state.allProducts}
-          updateTextFilter={this.updateTextFilter}
-          updateCategoryFilter={this.updateCategoryFilter}
-          textFilter={this.state.textFilter}
-          categoryFilter={this.state.categoryFilter}
-        />
-        <Products
-          allProducts={this.state.allProducts}
-          textFilter={this.state.textFilter}
-          categoryFilter={this.state.categoryFilter}
-        />
-        <Cart removeFromCart={this.removeFromCart} cart={this.state.cart} />
+        <Router>
+          <Header
+            allProducts={this.state.allProducts}
+            updateTextFilter={this.updateTextFilter}
+            updateCategoryFilter={this.updateCategoryFilter}
+            textFilter={this.state.textFilter}
+            categoryFilter={this.state.categoryFilter}
+          />
+          <Switch>
+            <Route exact path="/">
+              <Products
+                allProducts={this.state.allProducts}
+                textFilter={this.state.textFilter}
+                categoryFilter={this.state.categoryFilter}
+              />
+            </Route>
+            <Route exact path="/cart">
+              <Cart removeFromCart={this.removeFromCart} cart={this.state.cart} allProducts={this.state.allProducts} />
+            </Route>
+          </Switch>
+        </Router>
       </>
     );
+  }
 }
 
 export default App;
