@@ -72,6 +72,21 @@ class App extends Component {
     }
   }
 
+  addProducts = async (productObj) => {
+    const config = {
+      method: 'post',
+      baseURL: `${process.env.REACT_APP_SERVER_URL}`,
+      url: '/admin',
+      data: productObj,
+    }
+    try {
+      let response = await axios(config);
+      this.setState({allProducts: [...this.state.allProducts, response.data]});
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   putProducts = async (id, updateProducts) => {
     const url = `${process.env.REACT_APP_SERVER_URL}/cart/${id}`;
     try {
