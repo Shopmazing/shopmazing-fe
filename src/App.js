@@ -4,6 +4,7 @@ import './App.css';
 import Products from './home/Products';
 import Header from './header/Header';
 import Cart from './cart/Cart';
+import Admin from './admin/Admin';
 import {
   BrowserRouter as Router,
   Switch,
@@ -133,6 +134,9 @@ class App extends Component {
             </Route>
             <Route exact path="/cart">
               <Cart removeFromCart={this.removeFromCart} cart={this.state.cart} allProducts={this.state.allProducts} />
+            </Route>
+            <Route exact path="/admin">
+              <Admin allProducts={this.state.allProducts} addProducts={this.addProducts} />
             </Route>
           </Switch>
         </Router>
