@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {Navbar, Container, Nav, NavItem, Form, FormControl} from 'react-bootstrap'
 import {Link} from 'react-router-dom';
-import Icon from '@mui/material/Icon';
+import CartBadgedIcon from './CartBadgedIcon';
 
 export default class Header extends Component {
 
@@ -27,8 +27,8 @@ export default class Header extends Component {
               </Nav>
               <Form onSubmit={this.handleSubmit} className="d-flex">
                 <Form.Select onChange={this.handleCategoryChange} aria-label="Floating label select example">
-                  {this.getCategories().map(element => {
-                    return <option value={element}>{element}</option>
+                  {this.getCategories().map((element, index) => {
+                    return <option key={index} value={element}>{element}</option>
                   })}
                 </Form.Select>
                 <FormControl
@@ -41,11 +41,12 @@ export default class Header extends Component {
                 />
               </Form>
               <Nav>
-                <Nav.Link href="/admin"><Icon>star</Icon></Nav.Link>
+                <NavItem> <CartBadgedIcon cart={this.props.cart} /></NavItem>
               </Nav>
             </Navbar.Collapse>
           </Container>
         </Navbar>
+
       </>
     )
   }

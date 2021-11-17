@@ -4,7 +4,7 @@ import './App.css';
 import Products from './home/Products';
 import Header from './header/Header';
 import Cart from './cart/Cart';
-import { 
+import {
   BrowserRouter as Router,
   Switch,
   Route,
@@ -24,7 +24,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.getFakeProducts();
+    //this.getFakeProducts();
     this.getProducts();
   }
 
@@ -53,14 +53,23 @@ class App extends Component {
       });
       console.log('data', data);
       this.setState({allProducts: data});
-    } catch {
-
+    } catch (error) {
+      console.error(error);
     }
-
   }
 
-  getProducts = () => {
-    //todo
+  getProducts = async () => {
+    const config = {
+      method: 'get',
+      baseURL: `${process.env.REACT_APP_SERVER_URL}`,
+      url: '/',
+    }
+    try {
+      const productResponse = await axios(config);
+      this.setState({allProducts: productResponse.data});
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   putProducts = async (id, updateProducts) => {
@@ -73,9 +82,17 @@ class App extends Component {
       console.error(e);
     }
   }
+
   removeFromCart = (id) => {
     let filteredProducts = this.state.cart.filter(product => product._id !== id);
-    this.setState({product: filteredProducts});
+    this.setState({allProducts: filteredProducts});
+  }
+
+  addToCart = (id) => {
+    const productToAdd = this.state.allProducts.filter(element => element._id === id)[0];
+    this.setState({cart: [...this.state.cart, productToAdd]})
+    console.log(productToAdd);
+    console.log(this.state.cart);
   }
 
   render() {
@@ -88,6 +105,7 @@ class App extends Component {
             updateCategoryFilter={this.updateCategoryFilter}
             textFilter={this.state.textFilter}
             categoryFilter={this.state.categoryFilter}
+            cart={this.state.cart}
           />
           <Switch>
             <Route exact path="/">
@@ -95,6 +113,7 @@ class App extends Component {
                 allProducts={this.state.allProducts}
                 textFilter={this.state.textFilter}
                 categoryFilter={this.state.categoryFilter}
+                addToCart={this.addToCart}
               />
             </Route>
             <Route exact path="/cart">
