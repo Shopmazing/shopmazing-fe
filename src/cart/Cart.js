@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, {Component} from 'react'
 import Cartitem from './Cartitem'
 import PlaceOrder from './PlaceOrder';
 import Table from 'react-bootstrap/Table';
@@ -7,20 +7,15 @@ import Button from 'react-bootstrap/Button';
 
 export default class Cart extends Component {
 
-    handleClick = (id) => {
-        this.props.removeFromCart(id);
-    }
+  handleClick = (id) => {
+    this.props.removeFromCart(id);
+  }
 
-    render() {
-        let total = this.props.cart.map(element => element.total).reduce((a, b) => Number(a) + Number(b), 0);
-        // const checkoutCart = this.props.cart
-        // for (let i = 0; i > checkoutCart.length; i++) {
-        //     if (checkoutCart[i]._id) 
-        // }
-        console.log(total);
-        return (
-            <>
-            <Table striped bordered hover>
+  render() {
+    let total = this.props.cart.map(element => element.total).reduce((a, b) => Number(a) + Number(b), 0);
+    return (
+      <>
+        <Table striped bordered hover>
           <thead>
             <tr>
               <th>Product</th>
@@ -41,13 +36,18 @@ export default class Cart extends Component {
               })
             }
             <tr>
-                <td colSpan='4'></td>
-                <td >{`$${total}`}</td>
+              <td colSpan='4'></td>
+              <td >{`$${total}`}</td>
             </tr>
-            </tbody>
-            </Table>
-            {this.props.cart.length > 0 ? <PlaceOrder placeOrder={this.props.placeOrder} cart={this.props.cart}/> : <Button disabled>Place Order</Button>}
-            </>
-        )
-    }
+          </tbody>
+        </Table>
+        {this.props.cart.length > 0 ?
+          <PlaceOrder
+            placeOrder={this.props.placeOrder}
+            cart={this.props.cart}
+            setupUser={this.props.setupUser} />
+          : <Button disabled>Place Order</Button>}
+      </>
+    )
+  }
 }

@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {withAuth0} from '@auth0/auth0-react';
 import axios from 'axios';
 import './App.css';
 import Products from './home/Products';
@@ -16,18 +17,17 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      modal: false,
       cart: [],
       allProducts: [],
-      isAdmin: false,
       textFilter: '',
       categoryFilter: 'all',
+      user: {},
     }
   }
 
   componentDidMount() {
-    //this.getFakeProducts();
     this.getProducts();
+    console.log(Router)
   }
 
   updateCategoryFilter = (category) => {
@@ -134,21 +134,21 @@ class App extends Component {
       }
       return false;
     }
-
     const productToAdd = this.state.allProducts.filter(element => element._id === id)[0];
-    if (productToAdd.quantity >= productToAdd.stock) {
+    if (!this.state.user.email > 0) {
+      alert('Please log in before adding items to cart.')
+    } else if (productToAdd.quantity >= productToAdd.stock) {
       alert('Item out of stock.')
-    } else if(this.state.cart.length > 0 && containsProduct(this.state.cart, productToAdd)) {
+    } else if (this.state.cart.length > 0 && containsProduct(this.state.cart, productToAdd)) {
       console.log('already in cart');
       productToAdd.quantity = Number(productToAdd.quantity) + 1;
       productToAdd.total = Math.round(productToAdd.quantity * Number(productToAdd.price));
       const filterCart = this.state.cart.filter(element => element._id !== id);
-      this.setState({cart: [...filterCart , productToAdd]});
+      this.setState({cart: [...filterCart, productToAdd]});
     } else {
       productToAdd.quantity = 1;
       productToAdd.total = Math.round(productToAdd.quantity * Number(productToAdd.price));
       this.setState({cart: [...this.state.cart, productToAdd]})
-      console.log(productToAdd);
     }
   }
 
@@ -158,9 +158,60 @@ class App extends Component {
       const productToEdit = this.state.allProducts.filter(element => element._id === orderArray[i]._id)[0];
       const prodQuantity = orderArray[i].quantity;
       productToEdit.stock = Number(productToEdit.stock) - Number(prodQuantity);
-      console.log(orderArray[i]);
       this.editProducts(productToEdit);
       this.removeFromCart(orderArray[i]._id);
+    }
+  }
+
+  postUser = async (userObj) => {
+    if (this.props.auth0.isAuthenticated) {
+      const res = await this.props.auth0.getIdTokenClaims();
+      const jwt = res.__raw;
+      const config = {
+        headers: {'Authorization': `Bearer ${jwt}`},
+        method: 'post',
+        baseURL: process.env.REACT_APP_SERVER_URL,
+        url: '/users',
+        data: userObj,
+      };
+      try {
+        await axios(config);
+        this.setState({user: userObj});
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  }
+
+  setupUser = async () => {
+    console.log('setting up user')
+    if (this.props.auth0.isAuthenticated) {
+      console.log('authenticated');
+      const res = await this.props.auth0.getIdTokenClaims();
+      const jwt = res.__raw;
+      const config = {
+        headers: {'Authorization': `Bearer ${jwt}`},
+        method: 'get',
+        baseURL: process.env.REACT_APP_SERVER_URL,
+        url: '/users',
+      }
+      console.log(config)
+      try {
+        const response = await axios(config);
+        console.log(response.data);
+        const user = response.data.filter(element => element.email === this.props.auth0.user.email)
+        if (user.length > 0) {
+          this.setState({user: user[0]})
+        } else {
+          const userToPost = {
+            email: this.props.auth0.user.email,
+            isAdmin: false,
+          }
+          this.postUser(userToPost);
+        }
+      } catch (error) {
+        console.log(error);
+      }
     }
   }
 
@@ -175,6 +226,7 @@ class App extends Component {
             textFilter={this.state.textFilter}
             categoryFilter={this.state.categoryFilter}
             cart={this.state.cart}
+            user={this.state.user}
           />
           <Switch>
             <Route exact path="/">
@@ -182,26 +234,31 @@ class App extends Component {
                 allProducts={this.state.allProducts}
                 textFilter={this.state.textFilter}
                 categoryFilter={this.state.categoryFilter}
-             />
+                addToCart={this.addToCart}
+              />
             </Route>
             <Route exact path="/cart">
               <Cart
                 placeOrder={this.placeOrder}
                 removeFromCart={this.removeFromCart}
                 cart={this.state.cart}
-                allProducts={this.state.allProducts} />
+                allProducts={this.state.allProducts}
+                setupUser={this.setupUser} />
             </Route>
             <Route exact path="/about">
               <AboutUs />
             </Route>
-            <Route exact path="/admin">
-              <Admin
-                allProducts={this.state.allProducts}
-                editProducts={this.editProducts}
-                deleteProducts={this.deleteProducts}
-                addProducts={this.addProducts}
-              />
-            </Route>
+            {this.state.user.isAdmin &&
+              <Route exact path="/admin">
+
+                <Admin
+                  allProducts={this.state.allProducts}
+                  editProducts={this.editProducts}
+                  deleteProducts={this.deleteProducts}
+                  addProducts={this.addProducts}
+                />
+              </Route>
+            }
           </Switch>
         </Router>
       </>
@@ -209,4 +266,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withAuth0(App);
