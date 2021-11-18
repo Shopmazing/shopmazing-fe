@@ -21,6 +21,7 @@ export default class Products extends Component {
         filteredProducts = this.props.allProducts.filter(element => element.category === this.props.categoryFilter).filter(element => element.name.match(new RegExp(this.props.textFilter, 'i')) || element.description.match(new RegExp(this.props.textFilter, 'i')));
       }
     }
+    filteredProducts = filteredProducts.filter(element => element.stock > 0);
 
     return (
       <div>

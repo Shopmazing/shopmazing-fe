@@ -11,7 +11,7 @@ class NewProductForm extends Component {
     const image = event.target.formUrl.value;
     const category = event.target.formCategory.value;
     const price = event.target.formPrice.value;
-    const stock = event.target.formPrice.value;
+    const stock = event.target.formStock.value;
     const productObj = {name, description, image, price, stock, category};
     event.target.reset();
     this.props.addProducts(productObj);
