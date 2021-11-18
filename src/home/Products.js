@@ -25,23 +25,29 @@ export default class Products extends Component {
 
     return (
       <div>
-        <Box sx={{width: '100%'}}>
-          <Grid container rowSpacing={1} columnSpacing={{xs: 1, sm: 2, md: 3}}>
-            {
-              filteredProducts.map((element, index) => {
-                return (
-                  <Grid key={index} item xs={6}>
-                    <ProductCard
-                      product={element}
-                      addToCart={this.props.addToCart}
-                    />
-                  </Grid>
-                );
-              })
-            }
-          </Grid>
-        </Box>
-      </div>
+        <Grid
+          container
+          spacing={3}
+          alignItems="stretch"
+          justifyContent="center"
+
+        >
+
+          {
+            filteredProducts.map((element, index) => {
+              return (
+                <Grid container padding="2%" justifyContent="center" key={index} item spacing={3} xs={2} sm={4} md={3}>
+                  <ProductCard
+                    product={element}
+                    addToCart={this.props.addToCart}
+                  />
+                </Grid>
+              );
+            })
+          }
+        </Grid>
+      </div >
     )
   }
 }
+

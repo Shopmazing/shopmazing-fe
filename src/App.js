@@ -229,6 +229,7 @@ class App extends Component {
             cart={this.state.cart}
             user={this.state.user}
           />
+          <button onClick={this.setupUser}>secret</button>
           <Switch>
             <Route exact path="/">
               <Products
