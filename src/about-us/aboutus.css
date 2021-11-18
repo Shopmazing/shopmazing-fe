@@ -1,6 +1,6 @@
 
-.mainDiv {
-    margin: auto;
+#mainDiv {
+    /* margin: auto; */
     background-size: cover;
     border: 5px solid rgb(185, 97, 97);
     padding: 10px;
@@ -9,44 +9,40 @@
     background-color: azure;
     background-image: url("http://www.simpleimageresizer.com/_uploads/photos/69526668/background1_99.jpg");
     background-position: center;
-    max-width: 90vw;
-    height: 1300px;
+    /* width: 90vw; */
 }
+    /*height: 1300px; } */
+ 
 h1 {
     text-align: center;
     margin-bottom: 300px;
     color: black;
     text-shadow:1px 1px 2px black, 0 0 20px black, 0 0 5px azure;
     
+} 
+
+ h2 {
+    text-align: center;
+    color:white; 
+     text-shadow: 2px 2px 4px gray;
+     text-shadow: 1px 1px 2px black, 0 0 5px blue, 0 0 1px darkblue;
 }
 
-h2 {
-    position: relative;
-    left: 60px;
-    color:white;
-    /* text-shadow: 2px 2px 4px gray */
-    text-shadow: 1px 1px 2px black, 0 0 5px blue, 0 0 1px darkblue;
-}
-
-img {
-    display: block;
-    /* margin-bottom: 150px; */
-    height: 300px;
-    width: 300px;
-    margin-left: 15px;
+img { 
+     height: 300px;
+     width: 300px;
     border-radius: 10px;
     border: 4px solid #000;
     padding: 2px;
 
-}
+} 
 
-p {
-    margin: 200px;
+ p {
     color: white;
     margin-top: 15px;
-    margin-left: 20px;
-    width: 300px;
+    margin-left: 5px;
     height: auto;
+    width: 300px;
     border: 1px dashed silver;
     border-radius: 10px;
     background-color: black;
@@ -54,52 +50,48 @@ p {
 }
 
 #kirkDiv {
+    margin-left: 100px;
     position: relative;
-    left: 30%;
-    margin-left: 150px;
-    bottom: 555px;
-
-}
-
+    left: 75px; 
+} 
 #kirkDiv h2 {
     position: relative;
-    left: 72px;
+    left: 50px;
 }
 
+
 #edDiv {
+     margin-left: 150px; 
     position: relative;
-    bottom: 1113px;
-    margin-left: 150px;
-    left: 60%;
+    left: 130px; 
 }
 
 #edDiv h2 {
     position: relative;
-    left: 90px;
+    left: 70px;
 }
 
 
-#jordanDiv{
+ #jordanDiv{
+    margin-left: 270px;
+}
+#jordanDiv h2 {
     position: relative;
-    bottom: 1070px;
-    margin-top: 0px;
-    margin-left: 325px;
-}
-    
+    right: 20px;
+} 
 
 #soniDiv {
+    margin-left: 60px;  
+}
+#soniDiv h2 {
     position: relative;
-    bottom: 1625px;
-    
-    margin-left: 835px;  
-}
-
+    right: 130px;
+} 
 #benDiv {
-    margin-left: 150px;
-    margin-top: 50px;
-}
+    margin-left: 50px;
+} 
 
 #benDiv h2 {
     position: relative;
-    left: 100px;
-}
+    left: 30px;
+} 
