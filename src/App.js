@@ -59,6 +59,7 @@ class App extends Component {
     }
   }
 
+
   getProducts = async () => {
     const config = {
       method: 'get',
@@ -256,6 +257,7 @@ class App extends Component {
                   editProducts={this.editProducts}
                   deleteProducts={this.deleteProducts}
                   addProducts={this.addProducts}
+                  getRandomProduct={this.getRandomProduct}
                 />
               </Route>
             }
