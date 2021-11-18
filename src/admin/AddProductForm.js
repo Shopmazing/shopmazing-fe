@@ -33,7 +33,7 @@ class NewProductForm extends Component {
           name: randomResponse.data.name,
           description: randomResponse.data.description,
           image: randomResponse.data.image,
-          category: '',
+          category: randomResponse.data.category,
           price: randomResponse.data.price,
           stock: randomResponse.data.stock,
           quantitySold: 0,
