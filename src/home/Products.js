@@ -1,6 +1,8 @@
-import Grid from '@mui/material/Grid';
 import React, {Component} from 'react';
+import { Container, Row } from 'react-bootstrap';
 import ProductCard from './ProductCard';
+import './product.css'
+
 
 export default class Products extends Component {
 
@@ -20,20 +22,25 @@ export default class Products extends Component {
     filteredProducts = filteredProducts.filter(element => element.stock > 0);
 
     return (
-      <div id="outer-all-card">
+
+      <Container>
+        <Row xs={2} sm={3} md={5} offset-md={10} className="row">
+        
         {
-          filteredProducts.map((element, index) => {
+          filteredProducts.map((element, index) => { 
             return (
-              <div className="inner-all-card">
+              
                 <ProductCard
+                  key={index}
                   product={element}
                   addToCart={this.props.addToCart}
                 />
-              </div>
             );
           })
         }
-      </div >
+      </Row >
+      
+      </Container>
     )
   }
 }

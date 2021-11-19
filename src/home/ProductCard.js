@@ -1,11 +1,6 @@
 import React, {Component} from 'react'
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
 import ProductModal from './ProductModal'
+import './product.css'
 
 export default class ProductCard extends Component {
   constructor(props) {
@@ -17,7 +12,7 @@ export default class ProductCard extends Component {
 
   openModal = () => {
     this.setState({modal: true})
-    console.log(this.state.modal)
+    
   }
 
   closeModal = () => {
@@ -31,6 +26,7 @@ export default class ProductCard extends Component {
   render() {
     return (
       <>
+        
         <div className="single-card" >
           <img
             className="product-card-img"
@@ -47,6 +43,7 @@ export default class ProductCard extends Component {
           >Add to Cart</button>
           <ProductModal modal={this.state.modal} closeModal={this.closeModal} products={this.props.product} />
         </div>
+        
       </>
     )
   }
