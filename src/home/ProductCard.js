@@ -1,5 +1,7 @@
-import React, {Component} from 'react'
-import ProductModal from './ProductModal'
+import React, {Component} from 'react';
+import ProductModal from './ProductModal';
+import Button from 'react-bootstrap/Button';
+import Container from 'react-bootstrap/Container';
 import './product.css'
 
 export default class ProductCard extends Component {
@@ -12,7 +14,7 @@ export default class ProductCard extends Component {
 
   openModal = () => {
     this.setState({modal: true})
-    
+
   }
 
   closeModal = () => {
@@ -26,7 +28,7 @@ export default class ProductCard extends Component {
   render() {
     return (
       <>
-        
+
         <div className="single-card" >
           <img
             className="product-card-img"
@@ -35,15 +37,18 @@ export default class ProductCard extends Component {
             alt={this.props.product.name}
           />
           <p className="product-name">{this.props.product.name}</p>
-          <p className="product-price">{'$' + this.props.product.price}</p>
-          <button
-            size="medium"
-            variant="contained"
-            onClick={this.handleClick}
-          >Add to Cart</button>
+          <Container style={{display: "flex", flexDirection: "column", alignItems: "flex-end"}}>
+            <p className="product-price">{'$' + this.props.product.price}</p>
+            <Button
+              size="sm"
+              variant="secondary"
+              style={{maxWidth: "60%", justifySelf: "right"}}
+              onClick={this.handleClick}
+            >Add to Cart</Button>
+          </Container>
           <ProductModal modal={this.state.modal} closeModal={this.closeModal} products={this.props.product} />
         </div>
-        
+
       </>
     )
   }

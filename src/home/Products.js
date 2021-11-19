@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Container, Row } from 'react-bootstrap';
+import {Container, Row} from 'react-bootstrap';
 import ProductCard from './ProductCard';
 import './product.css'
 
@@ -24,22 +24,22 @@ export default class Products extends Component {
     return (
 
       <Container>
-        <Row xs={2} sm={3} md={5} offset-md={10} className="row">
-        
-        {
-          filteredProducts.map((element, index) => { 
-            return (
-              
+        <Row xs={2} sm={3} md={5} offset-md={10} id="row">
+
+          {
+            filteredProducts.map((element, index) => {
+              return (
+
                 <ProductCard
                   key={index}
                   product={element}
                   addToCart={this.props.addToCart}
                 />
-            );
-          })
-        }
-      </Row >
-      
+              );
+            })
+          }
+        </Row >
+
       </Container>
     )
   }

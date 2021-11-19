@@ -1,6 +1,7 @@
 import {Component} from "react";
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import Container from 'react-bootstrap/Container';
 import axios from 'axios';
 
 class NewProductForm extends Component {
@@ -114,15 +115,19 @@ class NewProductForm extends Component {
               defaultValue={this.state.randomProduct.stock}
             />
           </Form.Group>
-          <Button variant="dark" type="submit">
-            Submit
-          </Button>
-          <Button
-            onClick={this.handleClick}
-            variant="dark"
-            type="button"
-          >Random Product
-          </Button>
+          <Container style={{display: "flex"}}>
+            <Container id="add-item-button">
+              <Button variant="dark" type="submit">
+                Submit
+              </Button>
+              <Button
+                onClick={this.handleClick}
+                variant="dark"
+                type="button"
+              >Random Product
+              </Button>
+            </Container>
+          </Container>
         </Form>
       </>
     );
