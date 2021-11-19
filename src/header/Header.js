@@ -6,6 +6,7 @@ import LoginButton from './LoginButton';
 import LogoutButton from './LogoutButton';
 import CartBadgedIcon from './CartBadgedIcon';
 import SettingsIcon from '@mui/icons-material/Settings';
+import UserSetup from './UserSetup';
 import {withRouter} from 'react-router-dom';
 
 class Header extends Component {
@@ -47,9 +48,23 @@ class Header extends Component {
                 </Form>
               }
               <Nav>
-                {this.props.auth0.isAuthenticated && this.props.user.isAdmin && <NavItem><Link to="/admin" className="nav-link"><SettingsIcon /></Link></NavItem>}
-                <NavItem><Link to="/cart" className="nav-link"><CartBadgedIcon cart={this.props.cart} /></Link></NavItem>
-                <NavItem>{this.props.auth0.isAuthenticated ? <LogoutButton /> : <LoginButton setupUser={this.props.setupUser} />}</NavItem>
+                {this.props.auth0.isAuthenticated &&
+                  this.props.user.isAdmin &&
+                  <NavItem>
+                    <Link to="/admin" className="nav-link">
+                      <SettingsIcon />
+                    </Link>
+                  </NavItem>}
+                {this.props.auth0.isAuthenticated &&
+                  <>
+                    <UserSetup setupUser={this.props.setupUser} />
+                    <NavItem>
+                      <Link to="/cart" className="nav-link">
+                        <CartBadgedIcon cart={this.props.cart} />
+                      </Link>
+                    </NavItem>
+                  </>}
+                <NavItem>{this.props.auth0.isAuthenticated ? <LogoutButton /> : <LoginButton />}</NavItem>
               </Nav>
             </Navbar.Collapse>
           </Container>

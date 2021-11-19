@@ -27,7 +27,6 @@ class App extends Component {
 
   componentDidMount() {
     this.getProducts();
-    console.log(Router)
   }
 
   updateCategoryFilter = (category) => {
@@ -119,13 +118,6 @@ class App extends Component {
     }
   }
 
-  removeFromCart = (id) => {
-    const productToRemove = this.state.allProducts.filter(element => element._id === id)[0];
-    productToRemove.quantity = 0;
-    let filteredProducts = this.state.cart.filter(product => product._id !== id);
-    this.setState({cart: filteredProducts});
-  }
-
   addToCart = (id) => {
     const containsProduct = (arr, productObj) => {
       for (let i = 0; i < arr.length; i++) {
@@ -141,7 +133,6 @@ class App extends Component {
     } else if (productToAdd.quantity >= productToAdd.stock) {
       alert('Item out of stock.')
     } else if (this.state.cart.length > 0 && containsProduct(this.state.cart, productToAdd)) {
-      console.log('already in cart');
       productToAdd.quantity = Number(productToAdd.quantity) + 1;
       productToAdd.total = Math.round(productToAdd.quantity * Number(productToAdd.price));
       const filterCart = this.state.cart.filter(element => element._id !== id);
@@ -154,14 +145,13 @@ class App extends Component {
   }
 
   placeOrder = (orderArray) => {
-    console.log('Placing Order')
     for (let i = 0; i < orderArray.length; i++) {
       const productToEdit = this.state.allProducts.filter(element => element._id === orderArray[i]._id)[0];
       const prodQuantity = orderArray[i].quantity;
       productToEdit.stock = Number(productToEdit.stock) - Number(prodQuantity);
       this.editProducts(productToEdit);
-      this.removeFromCart(orderArray[i]._id);
     }
+    this.setState({cart: []});
   }
 
   postUser = async (userObj) => {
@@ -185,9 +175,7 @@ class App extends Component {
   }
 
   setupUser = async () => {
-    console.log('setting up user')
     if (this.props.auth0.isAuthenticated) {
-      console.log('authenticated');
       const res = await this.props.auth0.getIdTokenClaims();
       const jwt = res.__raw;
       const config = {
@@ -196,10 +184,8 @@ class App extends Component {
         baseURL: process.env.REACT_APP_SERVER_URL,
         url: '/users',
       }
-      console.log(config)
       try {
         const response = await axios(config);
-        console.log(response.data);
         const user = response.data.filter(element => element.email === this.props.auth0.user.email)
         if (user.length > 0) {
           this.setState({user: user[0]})
@@ -228,8 +214,8 @@ class App extends Component {
             categoryFilter={this.state.categoryFilter}
             cart={this.state.cart}
             user={this.state.user}
+            setupUser={this.setupUser}
           />
-          <button onClick={this.setupUser}>secret</button>
           <Switch>
             <Route exact path="/">
               <Products

@@ -1,0 +1,54 @@
+.product-card-img > img{
+  max-height: 200px;
+  width: 100%;
+  object-fit: contain;
+  margin-bottom: 15px;
+}
+
+#outer-all-cards {
+  display: flex;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1500px;
+}
+
+.inner-all-card  {
+display: flex;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1500px;
+}
+
+.single-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  margin: 10px;
+  width: 20px;
+  width: 100%;
+  max-height: 400px;
+  min-width: 100px;
+  background-color: white;
+  z-index: 1;
+}
+
+.product-name {
+max-height: 100px;
+  margin-bottom: 15px;
+  max-width: fit-content;
+}
+
+.product-price {
+  margin-top: 5px;
+}
+
+.single-card > button {
+  background: rgba(211, 18, 11, 0.521);
+  border: 1px solid;
+  margin-top: 10px;
+  border-color: red;
+  color: black;
+}

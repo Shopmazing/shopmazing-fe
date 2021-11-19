@@ -1,8 +1,4 @@
 import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-
-
-
 import React, {Component} from 'react';
 import ProductCard from './ProductCard';
 
@@ -24,28 +20,19 @@ export default class Products extends Component {
     filteredProducts = filteredProducts.filter(element => element.stock > 0);
 
     return (
-      <div>
-        <Grid
-          container
-          spacing={3}
-          alignItems="stretch"
-          justifyContent="center"
-
-        >
-
-          {
-            filteredProducts.map((element, index) => {
-              return (
-                <Grid container padding="2%" justifyContent="center" key={index} item spacing={3} xs={2} sm={4} md={3}>
-                  <ProductCard
-                    product={element}
-                    addToCart={this.props.addToCart}
-                  />
-                </Grid>
-              );
-            })
-          }
-        </Grid>
+      <div id="outer-all-card">
+        {
+          filteredProducts.map((element, index) => {
+            return (
+              <div className="inner-all-card">
+                <ProductCard
+                  product={element}
+                  addToCart={this.props.addToCart}
+                />
+              </div>
+            );
+          })
+        }
       </div >
     )
   }
