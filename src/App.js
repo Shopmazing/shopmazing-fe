@@ -138,6 +138,7 @@ class App extends Component {
       const productToEdit = this.state.allProducts.filter(element => element._id === orderArray[i]._id)[0];
       const prodQuantity = orderArray[i].quantity;
       productToEdit.stock = Number(productToEdit.stock) - Number(prodQuantity);
+      productToEdit.quantitySold = Number(productToEdit.quantitySold) + Number(prodQuantity)
       this.editProducts(productToEdit);
       this.setState({cart: []});
     }
