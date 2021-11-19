@@ -31,24 +31,22 @@ max-height: 100px;
   margin-left: 75%;
 }
 
-.single-card > button {
-  background: rgba(211, 18, 11, 0.521);
-  border: 1px solid;
-  margin-top: 10px;
-  border-color: red;
-  color: black;
-  margin-left: 60%;
-  margin-bottom: 20%;
-}
 
-.row {
 
+#row {
     justify-content: space-between;
-
+    --bs-gutter-y: 10em;
 }
-
 
 img {
   max-height: 500px;
   max-width: 450px;
+}
+
+#add-item-button {
+  display: flex;
+  width: 35%;
+  justify-content: space-between;
+  margin-left: 0;
+  
 }
