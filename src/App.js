@@ -37,28 +37,6 @@ class App extends Component {
     this.setState({textFilter: text});
   }
 
-  getFakeProducts = async () => {
-    const fakeProductsUrl = `https://fakestoreapi.com/products`;
-    try {
-      const fakeProductsResponse = await axios.get(fakeProductsUrl);
-      let data = fakeProductsResponse.data.map((element) => {
-        //convert
-        return {
-          name: element.title,
-          category: element.category,
-          description: element.description,
-          image: element.image,
-          price: element.price,
-          stock: 1,
-        };
-      });
-      this.setState({allProducts: data});
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-
   getProducts = async () => {
     const config = {
       method: 'get',
@@ -118,6 +96,13 @@ class App extends Component {
     }
   }
 
+  removeFromCart = (id) => {
+    const productToRemove = this.state.allProducts.filter(element => element._id === id)[0];
+    productToRemove.quantity = 0;
+    let filteredProducts = this.state.cart.filter(product => product._id !== id);
+    this.setState({cart: filteredProducts});
+  }
+
   addToCart = (id) => {
     const containsProduct = (arr, productObj) => {
       for (let i = 0; i < arr.length; i++) {
@@ -149,6 +134,7 @@ class App extends Component {
       const productToEdit = this.state.allProducts.filter(element => element._id === orderArray[i]._id)[0];
       const prodQuantity = orderArray[i].quantity;
       productToEdit.stock = Number(productToEdit.stock) - Number(prodQuantity);
+      productToEdit.quantitySold = Number(productToEdit.quantitySold) + Number(prodQuantity)
       this.editProducts(productToEdit);
     }
     this.setState({cart: []});

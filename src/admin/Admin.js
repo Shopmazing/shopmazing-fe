@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 import AdminDataGrid from './AdminDataGrid';
-import Button from 'react-bootstrap/Button';
 import AddProductModal from './AddProductModal';
 import EditProductModal from './EditProductModal';
 
@@ -45,8 +44,8 @@ export default class Admin extends Component {
         <AdminDataGrid
           allProducts={this.props.allProducts}
           deleteProducts={this.props.deleteProducts}
+          showAddModal={this.showAddModal}
           showEditModal={this.showEditModal} />
-        <Button onClick={this.showAddModal} >New Product</Button>
       </>
     )
   }
