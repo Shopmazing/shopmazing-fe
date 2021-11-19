@@ -10,7 +10,7 @@ class ProductModal extends Component {
     return (
       <>
         {this.props.products &&
-          <Modal show={this.props.modal} onHide={this.props.closeModal}>
+          <Modal show={this.props.modal} onHide={this.props.closeModal} centered>
             <Modal.Header closeButton>
               <Modal.Title>{this.props.products.title}</Modal.Title>
             </Modal.Header>
