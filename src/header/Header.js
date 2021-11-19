@@ -32,36 +32,44 @@ class Header extends Component {
               </Nav>
               {this.props.location.pathname === '/' &&
                 <Form onSubmit={this.handleSubmit} className="d-flex">
-                  <Form.Select onChange={this.handleCategoryChange} aria-label="Floating label select example">
-                    {this.getCategories().map((element, index) => {
-                      return <option key={index} value={element}>{element}</option>
-                    })}
-                  </Form.Select>
-                  <FormControl
-                    type="text"
-                    value={this.props.textFilter}
-                    className="me-2"
-                    placeholder="Filter by Text"
-                    aria-label="text"
-                    onChange={this.handleTextChange}
-                  />
+                  <Container>
+                    <Form.Select onChange={this.handleCategoryChange} aria-label="Floating label select example">
+                      {this.getCategories().map((element, index) => {
+                        return <option key={index} value={element}>{element}</option>
+                      })}
+                    </Form.Select>
+                  </Container>
+                  <Container>
+                    <FormControl
+                      type="text"
+                      value={this.props.textFilter}
+                      className="me-2"
+                      placeholder="Filter by Text"
+                      aria-label="text"
+                      onChange={this.handleTextChange}
+                    />
+                  </Container>
                 </Form>
               }
               <Nav>
                 {this.props.auth0.isAuthenticated &&
                   this.props.user.isAdmin &&
                   <NavItem>
-                    <Link to="/admin" className="nav-link">
-                      <SettingsIcon />
-                    </Link>
+                    <Container>
+                      <Link to="/admin" className="nav-link">
+                        <SettingsIcon />
+                      </Link>
+                    </Container>
                   </NavItem>}
                 {this.props.auth0.isAuthenticated &&
                   <>
                     <UserSetup setupUser={this.props.setupUser} />
                     <NavItem>
+                      <Container>
                       <Link to="/cart" className="nav-link">
                         <CartBadgedIcon cart={this.props.cart} />
                       </Link>
+                      </Container>
                     </NavItem>
                   </>}
                 <NavItem>{this.props.auth0.isAuthenticated ? <LogoutButton /> : <LoginButton />}</NavItem>
