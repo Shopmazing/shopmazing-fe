@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 import AdminDataGrid from './AdminDataGrid';
-import Button from 'react-bootstrap/Button';
 import AddProductModal from './AddProductModal';
 import EditProductModal from './EditProductModal';
 
