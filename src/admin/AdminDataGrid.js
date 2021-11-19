@@ -10,17 +10,18 @@ export default class AdminDataGrid extends Component {
   render() {
     return (
       <>
-        <Container>
+        <Container style={{maxHeight: "80vh", overflow: "scroll", overflowX: "hidden"}}>
           <Table striped bordered hover>
-            <thead>
+            <thead style={{backgroundColor: "white", position: "sticky", top: 0}}>
               <tr>
                 <th><Button variant="success" onClick={this.props.showAddModal} >+</Button></th>
                 <th>Product</th>
                 <th>Description</th>
                 <th>Category</th>
                 <th>Price</th>
-                <th>In Stock</th>
-                <th>Quantity Sold</th>
+                <th>Stock</th>
+                <th>Sold</th>
+                <th></th>
               </tr>
             </thead>
             <tbody>

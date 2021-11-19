@@ -96,6 +96,20 @@ class App extends Component {
     }
   }
 
+  // Used for adjusting quantity in cart
+  adjustCartItemQuantity = (id, quantity) => {
+    const product = this.state.cart.find(({_id}) => _id === id);
+    const filterCart = this.state.cart.filter(element => element._id !== product._id)[0];
+    product.quantity = quantity;
+    if (filterCart) {
+      if(filterCart.length > 1) {
+      this.setState({cart: [product, ...filterCart]});
+      }
+    } else {
+      this.setState({cart: [product]});
+    }
+  }
+
   removeFromCart = (id) => {
     const productToRemove = this.state.allProducts.filter(element => element._id === id)[0];
     productToRemove.quantity = 0;
@@ -214,6 +228,7 @@ class App extends Component {
             <Route exact path="/cart">
               <Cart
                 placeOrder={this.placeOrder}
+                adjustCartItemQuantity={this.adjustCartItemQuantity}
                 removeFromCart={this.removeFromCart}
                 cart={this.state.cart}
                 allProducts={this.state.allProducts}

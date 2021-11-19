@@ -13,4 +13,7 @@ code {
     monospace;
 }
 
+.nav-item {
+  align-self: center;
+}
 

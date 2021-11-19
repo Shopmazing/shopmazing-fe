@@ -8,6 +8,7 @@ import CartBadgedIcon from './CartBadgedIcon';
 import SettingsIcon from '@mui/icons-material/Settings';
 import UserSetup from './UserSetup';
 import {withRouter} from 'react-router-dom';
+import shopifyLogo from '../images/logo.png'
 
 class Header extends Component {
 
@@ -22,38 +23,44 @@ class Header extends Component {
   render() {
     return (
       <>
-        <Navbar collapseOnSelect expand="lg" variant="primary">
+        <Navbar style={{marginBottom: "2%"}} expand="lg" bg="dark" variant="dark">
           <Container>
-            <Navbar.Brand><Link to="/" className="nav-link">Shopmazing</Link></Navbar.Brand>
+            <Navbar.Brand><Link style={{padding: 0}} to="/" className="nav-link"><img src={shopifyLogo} alt="shopify logo" /></Link></Navbar.Brand>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
               <Nav className="me-auto">
-                <NavItem><Link to="/about" className="nav-link">About Us</Link></NavItem>
+                <NavItem variant="light"><Link to="/about" className="nav-link">About Us</Link></NavItem>
               </Nav>
               {this.props.location.pathname === '/' &&
                 <Form onSubmit={this.handleSubmit} className="d-flex">
-                  <Form.Select onChange={this.handleCategoryChange} aria-label="Floating label select example">
-                    {this.getCategories().map((element, index) => {
-                      return <option key={index} value={element}>{element}</option>
-                    })}
-                  </Form.Select>
-                  <FormControl
-                    type="text"
-                    value={this.props.textFilter}
-                    className="me-2"
-                    placeholder="Filter by Text"
-                    aria-label="text"
-                    onChange={this.handleTextChange}
-                  />
+                  <Container>
+                    <Form.Select onChange={this.handleCategoryChange} aria-label="Floating label select example">
+                      {this.getCategories().map((element, index) => {
+                        return <option key={index} value={element}>{element}</option>
+                      })}
+                    </Form.Select>
+                  </Container>
+                  <Container>
+                    <FormControl
+                      type="text"
+                      value={this.props.textFilter}
+                      className="me-2"
+                      placeholder="Filter by Text"
+                      aria-label="text"
+                      onChange={this.handleTextChange}
+                    />
+                  </Container>
                 </Form>
               }
               <Nav>
                 {this.props.auth0.isAuthenticated &&
                   this.props.user.isAdmin &&
                   <NavItem>
-                    <Link to="/admin" className="nav-link">
-                      <SettingsIcon />
-                    </Link>
+                    <Container>
+                      <Link to="/admin" className="nav-link">
+                        <SettingsIcon sx={{fontSize: 40}} />
+                      </Link>
+                    </Container>
                   </NavItem>}
                 {this.props.auth0.isAuthenticated &&
                   <>
@@ -64,7 +71,7 @@ class Header extends Component {
                       </Link>
                     </NavItem>
                   </>}
-                <NavItem>{this.props.auth0.isAuthenticated ? <LogoutButton /> : <LoginButton />}</NavItem>
+                <NavItem>{this.props.auth0.isAuthenticated ? <Container><LogoutButton /></Container> : <LoginButton />}</NavItem>
               </Nav>
             </Navbar.Collapse>
           </Container>

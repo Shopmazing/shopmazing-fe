@@ -9,7 +9,7 @@ function LoginButtonAuth0() {
   } = useAuth0();
 
   return !isAuthenticated && (
-    <Button onClick={loginWithRedirect}>Log in</Button>
+    <Button variant="secondary" size="sm" onClick={loginWithRedirect}>Log in</Button>
   );
 }
 
