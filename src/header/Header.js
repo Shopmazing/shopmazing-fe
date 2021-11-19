@@ -8,6 +8,7 @@ import CartBadgedIcon from './CartBadgedIcon';
 import SettingsIcon from '@mui/icons-material/Settings';
 import UserSetup from './UserSetup';
 import {withRouter} from 'react-router-dom';
+import shopifyLogo from '../images/logo.png'
 
 class Header extends Component {
 
@@ -22,13 +23,13 @@ class Header extends Component {
   render() {
     return (
       <>
-        <Navbar collapseOnSelect expand="lg" variant="primary">
+        <Navbar style={{marginBottom: "2%"}} expand="lg" bg="dark" variant="dark">
           <Container>
-            <Navbar.Brand><Link to="/" className="nav-link">Shopmazing</Link></Navbar.Brand>
+            <Navbar.Brand><Link style={{padding: 0}} to="/" className="nav-link"><img src={shopifyLogo} alt="shopify logo" /></Link></Navbar.Brand>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
               <Nav className="me-auto">
-                <NavItem><Link to="/about" className="nav-link">About Us</Link></NavItem>
+                <NavItem variant="light"><Link to="/about" className="nav-link">About Us</Link></NavItem>
               </Nav>
               {this.props.location.pathname === '/' &&
                 <Form onSubmit={this.handleSubmit} className="d-flex">
@@ -57,7 +58,7 @@ class Header extends Component {
                   <NavItem>
                     <Container>
                       <Link to="/admin" className="nav-link">
-                        <SettingsIcon />
+                        <SettingsIcon sx={{fontSize: 40}} />
                       </Link>
                     </Container>
                   </NavItem>}
@@ -65,14 +66,12 @@ class Header extends Component {
                   <>
                     <UserSetup setupUser={this.props.setupUser} />
                     <NavItem>
-                      <Container>
                       <Link to="/cart" className="nav-link">
                         <CartBadgedIcon cart={this.props.cart} />
                       </Link>
-                      </Container>
                     </NavItem>
                   </>}
-                <NavItem>{this.props.auth0.isAuthenticated ? <LogoutButton /> : <LoginButton />}</NavItem>
+                <NavItem>{this.props.auth0.isAuthenticated ? <Container><LogoutButton /></Container> : <LoginButton />}</NavItem>
               </Nav>
             </Navbar.Collapse>
           </Container>

@@ -16,8 +16,8 @@ const StyledBadge = styled(Badge)(({theme}) => ({
 export default function CartBadgedIcon({cart}) {
   return (
     <IconButton aria-label="cart">
-      <StyledBadge badgeContent={cart.reduce((a, b) => Number(a) + Number(b.quantity), 0)} showZero color="secondary">
-        <ShoppingCartIcon />
+      <StyledBadge badgeContent={cart.reduce((a, b) => Number(a) + Number(b.quantity), 0)} showZero color="warning">
+        <ShoppingCartIcon sx={{fontSize: 35}} color="primary" />
       </StyledBadge>
     </IconButton>
   );
