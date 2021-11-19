@@ -97,6 +97,14 @@ class App extends Component {
     }
   }
 
+  removeFromCart = (id) => {
+    const productToRemove = this.state.allProducts.filter(element => element._id === id)[0];
+    productToRemove.quantity = 0;
+    let filteredProducts = this.state.cart.filter(product => product._id !== id);
+    this.setState({cart: filteredProducts});
+  }
+
+
   addToCart = (id) => {
     const containsProduct = (arr, productObj) => {
       for (let i = 0; i < arr.length; i++) {
