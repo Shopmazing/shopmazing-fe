@@ -199,8 +199,8 @@ class App extends Component {
             categoryFilter={this.state.categoryFilter}
             cart={this.state.cart}
             user={this.state.user}
+            setupUser={this.setupUser}
           />
-          <button onClick={this.setupUser}>secret</button>
           <Switch>
             <Route exact path="/">
               <Products
