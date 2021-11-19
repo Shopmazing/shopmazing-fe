@@ -5,7 +5,6 @@ export default class PlaceOrder extends Component {
 
   handleClick = (e) => {
     e.preventDefault();
-    this.props.setupUser();
     this.props.placeOrder(this.props.cart);
   }
 

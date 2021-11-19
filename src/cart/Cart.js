@@ -45,7 +45,7 @@ export default class Cart extends Component {
           <PlaceOrder
             placeOrder={this.props.placeOrder}
             cart={this.props.cart}
-            setupUser={this.props.setupUser} />
+          />
           : <Button disabled>Place Order</Button>}
       </>
     )
