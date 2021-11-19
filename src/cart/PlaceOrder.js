@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import Button from 'react-bootstrap/Button';
-import Success from './Success';
 
 export default class PlaceOrder extends Component {
 
