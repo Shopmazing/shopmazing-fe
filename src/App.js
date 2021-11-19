@@ -39,6 +39,7 @@ class App extends Component {
 
   getProducts = async () => {
     const config = {
+      header: {"Access-Control-Allow-Headers": "*"},
       method: 'get',
       baseURL: `${process.env.REACT_APP_SERVER_URL}`,
       url: '/',
@@ -102,8 +103,8 @@ class App extends Component {
     const filterCart = this.state.cart.filter(element => element._id !== product._id)[0];
     product.quantity = quantity;
     if (filterCart) {
-      if(filterCart.length > 1) {
-      this.setState({cart: [product, ...filterCart]});
+      if (filterCart.length > 1) {
+        this.setState({cart: [product, ...filterCart]});
       }
     } else {
       this.setState({cart: [product]});
