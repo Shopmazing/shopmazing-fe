@@ -31,11 +31,8 @@ max-height: 100px;
   margin-left: 75%;
 }
 
-
-
 #row {
     justify-content: space-between;
-    --bs-gutter-y: 10em;
 }
 
 img {
