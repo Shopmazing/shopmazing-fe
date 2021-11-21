@@ -39,6 +39,7 @@ class App extends Component {
 
   getProducts = async () => {
     const config = {
+      headers: {"Access-Control-Allow-Origin": process.env.REACT_APP_SERVER_URL},
       method: 'get',
       baseURL: `${process.env.REACT_APP_SERVER_URL}`,
       url: '/',
